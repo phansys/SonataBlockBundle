@@ -36,19 +36,38 @@ abstract class AbstractBlockService implements BlockServiceInterface
     protected $templating;
 
     /**
-     * @param string          $name
+     * @param string          $templatingOrDeprecatedName
      * @param EngineInterface $templating
      */
-    public function __construct($name = null, EngineInterface $templating = null)
+    public function __construct($templatingOrDeprecatedName = null, EngineInterface $templating = null)
     {
-        if (null === $name || null === $templating) {
-            @trigger_error(
-                'The $name and $templating parameters will be required fields with the 4.0 release.',
-                E_USER_DEPRECATED
-            );
+        if ($templatingOrDeprecatedName instanceof EngineInterface) {
+            $this->templating = $templatingOrDeprecatedName;
+        } else {
+            $this->name = $templatingOrDeprecatedName;
+            $this->templating = $templating;
         }
 
-        $this->name = $name;
+        if (0 !== strpos(static::class, __NAMESPACE__.'\\')) {
+            if (null === $templatingOrDeprecatedName) {
+                @trigger_error(
+                    sprintf(
+                        'Passing %s as argument 1 to %s::%s() is deprecated since sonata-project/block-bundle 3.x and will throw a \TypeError as of 4.0. You must pass an instance of %s instead',
+                        \gettype($templatingOrDeprecatedName),
+                        static::class, __FUNCTION__,
+                        EngineInterface::class
+                    ),
+                    E_USER_DEPRECATED
+                );
+            } elseif (null !== $templatingOrDeprecatedName && !$templatingOrDeprecatedName instanceof EngineInterface) {
+                @trigger_error(
+                    sprintf('Passing a string as first parameter is deprecated since 3.x and will be a %s type with the 4.0 release', EngineInterface::class),
+                    E_USER_DEPRECATED
+                );
+            }
+        }
+
+        $this->name = $templatingOrDeprecatedName;
         $this->templating = $templating;
     }
 
