@@ -23,10 +23,8 @@ final class DebugBlocksCommand extends BaseCommand
 {
     /**
      * {@inheritdoc}
-     *
-     * NEXT_MAJOR: Rename to "debug:sonata:block"
      */
-    protected static $defaultName = 'sonata:block:debug';
+    protected static $defaultName = 'debug:sonata:block';
 
     /**
      * {@inheritdoc}
@@ -34,8 +32,6 @@ final class DebugBlocksCommand extends BaseCommand
     public function configure(): void
     {
         $this->setName(static::$defaultName); // BC for symfony/console < 3.4.0
-        // NEXT_MAJOR: Replace the current alias by "sonata:block:debug"
-        $this->setAliases(['debug:sonata:block']);
         $this->setDescription('Debug all blocks available, show default settings of each block');
 
         $this->addOption('context', 'c', InputOption::VALUE_REQUIRED, 'display service for the specified context');
@@ -46,14 +42,6 @@ final class DebugBlocksCommand extends BaseCommand
      */
     public function execute(InputInterface $input, OutputInterface $output): void
     {
-        if ('sonata:block:debug' === $input->getArgument('command')) {
-            // NEXT_MAJOR: Remove this check
-            @trigger_error(
-                'Command "sonata:block:debug" is deprecated since sonata-project/block-bundle 3.x and will be removed with the 4.0 release.'.
-                ' Use the "debug:sonata:block" command instead.',
-                E_USER_DEPRECATED
-            );
-        }
         if ($input->getOption('context')) {
             $services = $this->blockManager->getServicesByContext($input->getOption('context'));
         } else {

@@ -80,13 +80,19 @@ final class TweakCompilerPassTest extends TestCase
         $pass->process($this->container);
     }
 
+    public function blockIds(): \Generator
+    {
+        yield 'null' => [null];
+        yield 'empty string' => [''];
+    }
+
     /**
-     * @group legacy
+     * @dataProvider blockIds
      */
-    public function testProcessDifferentBlockId(): void
+    public function testProcessEmptyBlockId($blockId)
     {
         /** @var Definition $blockDefinition */
-        $blockDefinition = new Definition(null, ['acme.block.service.name']);
+        $blockDefinition = new Definition(null, [$blockId]);
         $blockDefinition->addTag('sonata.block');
 
         $managerDefinition = $this->createMock(Definition::class);
@@ -97,5 +103,7 @@ final class TweakCompilerPassTest extends TestCase
 
         $pass = new TweakCompilerPass();
         $pass->process($this->container);
+
+        $this->assertSame('acme.block.service', $blockDefinition->getArgument(0));
     }
 }
