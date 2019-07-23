@@ -103,9 +103,6 @@ abstract class AbstractBlockService implements BlockServiceInterface
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCacheKeys(BlockInterface $block)
     {
         return [
@@ -114,16 +111,10 @@ abstract class AbstractBlockService implements BlockServiceInterface
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(BlockInterface $block): void
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         return $this->renderResponse($blockContext->getTemplate(), [
@@ -132,17 +123,11 @@ abstract class AbstractBlockService implements BlockServiceInterface
         ], $response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTwig()
     {
         return $this->twig;

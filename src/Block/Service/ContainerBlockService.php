@@ -73,9 +73,6 @@ final class ContainerBlockService extends AbstractBlockService implements Editab
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         return $this->renderResponse($blockContext->getTemplate(), [

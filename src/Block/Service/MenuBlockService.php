@@ -99,9 +99,6 @@ final class MenuBlockService extends AbstractBlockService implements EditableBlo
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function validate(ErrorElement $errorElement, BlockInterface $block): void
     {
         if (($name = $block->getSetting('menu_name')) && '' !== $name && !$this->menuProvider->has($name)) {
@@ -112,9 +109,6 @@ final class MenuBlockService extends AbstractBlockService implements EditableBlo
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureSettings(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -133,9 +127,6 @@ final class MenuBlockService extends AbstractBlockService implements EditableBlo
         ]);
     }
 
-/**
-     * {@inheritdoc}
-     */
     public function getMetadata(): MetadataInterface
     {
         return new Metadata($this->getName(), $this->getName(), null, 'SonataBlockBundle', [

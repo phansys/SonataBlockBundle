@@ -60,9 +60,6 @@ final class BlockContextManager implements BlockContextManagerInterface
         $this->logger = $logger;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSettingsByType($type, array $settings, $replace = false): void
     {
         $typeSettings = isset($this->settingsByType[$type]) ? $this->settingsByType[$type] : [];
@@ -73,9 +70,6 @@ final class BlockContextManager implements BlockContextManagerInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSettingsByClass($class, array $settings, $replace = false): void
     {
         $classSettings = isset($this->settingsByClass[$class]) ? $this->settingsByClass[$class] : [];
@@ -98,9 +92,6 @@ final class BlockContextManager implements BlockContextManagerInterface
         return $this->blockLoader->exists($type);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function get($meta, array $settings = [])
     {
         if (!$meta instanceof BlockInterface) {

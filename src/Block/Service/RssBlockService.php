@@ -32,9 +32,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class RssBlockService extends AbstractBlockService implements EditableBlockService
 {
-    /**
-     * {@inheritdoc}
-     */
     public function configureSettings(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -95,9 +92,6 @@ final class RssBlockService extends AbstractBlockService implements EditableBloc
             ->end();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         // merge settings

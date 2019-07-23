@@ -31,9 +31,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class TextBlockService extends AbstractBlockService implements EditableBlockService
 {
-    /**
-     * {@inheritdoc}
-     */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         return $this->renderResponse($blockContext->getTemplate(), [

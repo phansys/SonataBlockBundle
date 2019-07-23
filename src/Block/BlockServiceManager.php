@@ -51,9 +51,6 @@ final class BlockServiceManager implements BlockServiceManagerInterface
         $this->container = $container;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function get(BlockInterface $block)
     {
         $this->load($block->getType());
@@ -61,25 +58,16 @@ final class BlockServiceManager implements BlockServiceManagerInterface
         return $this->services[$block->getType()];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getService($id)
     {
         return $this->load($id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function has($id)
     {
         return isset($this->services[$id]) ? true : false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function add($name, $service, $contexts = []): void
     {
         $this->services[$name] = $service;
@@ -104,9 +92,6 @@ final class BlockServiceManager implements BlockServiceManagerInterface
         return $this->sortServices($this->services);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getServicesByContext($context, $includeContainers = true)
     {
         if (!\array_key_exists($context, $this->contexts)) {
