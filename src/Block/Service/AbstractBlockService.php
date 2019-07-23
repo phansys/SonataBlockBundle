@@ -97,14 +97,6 @@ abstract class AbstractBlockService implements BlockServiceInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function setDefaultSettings(OptionsResolverInterface $resolver): void
-    {
-        $this->configureSettings($resolver);
-    }
-
-    /**
      * Define the default options for the block.
      */
     public function configureSettings(OptionsResolver $resolver): void
