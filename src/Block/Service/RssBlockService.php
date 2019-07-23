@@ -129,7 +129,7 @@ final class RssBlockService extends AbstractBlockService implements EditableBloc
 
     public function getMetadata(): MetadataInterface
     {
-        return new Metadata($this->getName(), $this->getName(), null, 'SonataBlockBundle', [
+        return new Metadata('sonata.block.service.rss', null, null, 'SonataBlockBundle', [
             'class' => 'fa fa-rss-square',
         ]);
     }

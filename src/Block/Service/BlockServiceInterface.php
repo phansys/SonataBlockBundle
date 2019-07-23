@@ -30,11 +30,6 @@ interface BlockServiceInterface
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null);
 
-    /**
-     * @return string
-     */
-    public function getName();
-
     public function load(BlockInterface $block);
 
     /**

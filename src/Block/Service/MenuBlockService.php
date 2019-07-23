@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\BlockBundle\Block\Service;
 
+use InvalidArgumentException;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -52,9 +53,9 @@ final class MenuBlockService extends AbstractBlockService implements EditableBlo
     /**
      * @param MenuRegistryInterface|null $menuRegistry
      */
-    public function __construct(string $name, Environment $twig, MenuProviderInterface $menuProvider, $menuRegistry = null)
+    public function __construct(Environment $twig, MenuProviderInterface $menuProvider, $menuRegistry = null)
     {
-        parent::__construct($name, $twig);
+        parent::__construct($twig);
 
         $this->menuProvider = $menuProvider;
 
@@ -63,7 +64,7 @@ final class MenuBlockService extends AbstractBlockService implements EditableBlo
         } elseif (null === $menuRegistry) {
             $this->menuRegistry = new MenuRegistry();
         } else {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'MenuRegistry must be either null or instance of %s',
                 MenuRegistryInterface::class
             ));
@@ -129,7 +130,7 @@ final class MenuBlockService extends AbstractBlockService implements EditableBlo
 
     public function getMetadata(): MetadataInterface
     {
-        return new Metadata($this->getName(), $this->getName(), null, 'SonataBlockBundle', [
+        return new Metadata('sonata.block.service.menu', null, null, 'SonataBlockBundle', [
             'class' => 'fa fa-bars',
         ]);
     }

@@ -17,7 +17,6 @@ use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Twig\Environment;
 
 /**
@@ -26,40 +25,13 @@ use Twig\Environment;
 abstract class AbstractBlockService implements BlockServiceInterface
 {
     /**
-     * @var string|null
-     */
-    protected $name;
-
-    /**
      * @var Environment
      */
     private $twig;
 
-    /**
-     * @param Environment|string $twigOrDeprecatedName
-     * @param Environment        $twig
-     */
-    public function __construct($twigOrDeprecatedName = null, Environment $twig = null)
+    public function __construct(Environment $twig)
     {
-        if (!$twigOrDeprecatedName instanceof Environment && 0 !== strpos(static::class, __NAMESPACE__.'\\')) {
-            @trigger_error(
-                sprintf(
-                    'Passing %s as argument 1 to %s::%s() is deprecated since sonata-project/block-bundle 3.x and will throw a \TypeError as of 4.0. You must pass an instance of %s instead',
-                    \gettype($twigOrDeprecatedName),
-                    static::class, __FUNCTION__,
-                    Environment::class
-                ),
-                E_USER_DEPRECATED
-            );
-        }
-
-        if ($twigOrDeprecatedName instanceof Environment) {
-            $this->name = '';
-            $this->twig = $twigOrDeprecatedName;
-        } else {
-            $this->name = $twigOrDeprecatedName;
-            $this->twig = $twig;
-        }
+        $this->twig = $twig;
     }
 
     /**
@@ -121,15 +93,5 @@ abstract class AbstractBlockService implements BlockServiceInterface
             'block_context' => $blockContext,
             'block' => $blockContext->getBlock(),
         ], $response);
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getTwig()
-    {
-        return $this->twig;
     }
 }

@@ -98,7 +98,7 @@ final class ContainerBlockService extends AbstractBlockService implements Editab
 
     public function getMetadata(): MetadataInterface
     {
-        return new Metadata($this->getName(), $this->getName(), null, 'SonataBlockBundle', [
+        return new Metadata('sonata.block.service.container', null, null, 'SonataBlockBundle', [
             'class' => 'fa fa-square-o',
         ]);
     }

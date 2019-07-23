@@ -68,7 +68,7 @@ final class TemplateBlockService extends AbstractBlockService implements Editabl
 
     public function getMetadata(): MetadataInterface
     {
-        return new Metadata($this->getName(), $this->getName(), null, 'SonataBlockBundle', [
+        return new Metadata('sonata.block.service.template', null, null, 'SonataBlockBundle', [
             'class' => 'fa fa-code',
         ]);
     }
