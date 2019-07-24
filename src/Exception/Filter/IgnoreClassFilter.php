@@ -30,10 +30,7 @@ final class IgnoreClassFilter implements FilterInterface
      */
     private $class;
 
-    /**
-     * @param string $class
-     */
-    public function __construct($class)
+    public function __construct(string $class)
     {
         $this->class = $class;
     }

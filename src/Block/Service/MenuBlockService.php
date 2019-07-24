@@ -50,28 +50,15 @@ final class MenuBlockService extends AbstractBlockService implements EditableBlo
      */
     protected $menuRegistry;
 
-    /**
-     * @param MenuRegistryInterface|null $menuRegistry
-     */
-    public function __construct(Environment $twig, MenuProviderInterface $menuProvider, $menuRegistry = null)
+    public function __construct(Environment $twig, MenuProviderInterface $menuProvider, MenuRegistryInterface $menuRegistry = null)
     {
         parent::__construct($twig);
 
         $this->menuProvider = $menuProvider;
-
-        if ($menuRegistry instanceof MenuRegistryInterface) {
-            $this->menuRegistry = $menuRegistry;
-        } elseif (null === $menuRegistry) {
-            $this->menuRegistry = new MenuRegistry();
-        } else {
-            throw new InvalidArgumentException(sprintf(
-                'MenuRegistry must be either null or instance of %s',
-                MenuRegistryInterface::class
-            ));
-        }
+        $this->menuRegistry = $menuRegistry ?: new MenuRegistry();
     }
 
-    public function execute(BlockContextInterface $blockContext, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, Response $response = null): Response
     {
         $responseSettings = [
             'menu' => $this->getMenu($blockContext),
@@ -135,10 +122,7 @@ final class MenuBlockService extends AbstractBlockService implements EditableBlo
         ]);
     }
 
-    /**
-     * @return array
-     */
-    protected function getFormSettingsKeys()
+    protected function getFormSettingsKeys(): array
     {
         $choiceOptions = [
             'required' => false,
@@ -209,11 +193,8 @@ final class MenuBlockService extends AbstractBlockService implements EditableBlo
 
     /**
      * Replaces setting keys with knp menu item options keys.
-     *
-     *
-     * @return array
      */
-    protected function getMenuOptions(array $settings)
+    protected function getMenuOptions(array $settings): array
     {
         $mapping = [
             'current_class' => 'currentClass',

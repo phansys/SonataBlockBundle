@@ -27,18 +27,15 @@ final class DebugOnlyFilter implements FilterInterface
     /**
      * @var bool
      */
-    private $debug;
+    private $debug = false;
 
-    /**
-     * @param bool $debug
-     */
-    public function __construct($debug)
+    public function __construct(bool $debug)
     {
         $this->debug = $debug;
     }
 
     public function handle(\Exception $exception, BlockInterface $block)
     {
-        return $this->debug ? true : false;
+        return $this->debug;
     }
 }

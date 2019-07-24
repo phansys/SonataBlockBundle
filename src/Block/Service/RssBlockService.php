@@ -92,7 +92,7 @@ final class RssBlockService extends AbstractBlockService implements EditableBloc
             ->end();
     }
 
-    public function execute(BlockContextInterface $blockContext, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, Response $response = null): Response
     {
         // merge settings
         $settings = $blockContext->getSettings();

@@ -29,8 +29,6 @@ interface StrategyManagerInterface
      * @param \Exception     $exception Exception to handle
      * @param BlockInterface $block     Block that provoked the exception
      * @param Response       $response  Response provided to the block service
-     *
-     * @return Response
      */
-    public function handleException(\Exception $exception, BlockInterface $block, Response $response = null);
+    public function handleException(\Exception $exception, BlockInterface $block, Response $response = null): Response;
 }

@@ -31,7 +31,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class TextBlockService extends AbstractBlockService implements EditableBlockService
 {
-    public function execute(BlockContextInterface $blockContext, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, Response $response = null): Response
     {
         return $this->renderResponse($blockContext->getTemplate(), [
             'block' => $blockContext->getBlock(),
@@ -56,7 +56,7 @@ final class TextBlockService extends AbstractBlockService implements EditableBlo
         ]);
     }
 
-    public function validate(ErrorElement $errorElement, BlockInterface $block)
+    public function validate(ErrorElement $errorElement, BlockInterface $block): void
     {
     }
 

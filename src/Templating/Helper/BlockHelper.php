@@ -82,11 +82,6 @@ class BlockHelper
      */
     private $stopwatch;
 
-    /**
-     * @param CacheManagerInterface     $cacheManager
-     * @param HttpCacheHandlerInterface $cacheHandler
-     * @param Stopwatch                 $stopwatch
-     */
     public function __construct(BlockServiceManagerInterface $blockServiceManager, array $cacheBlocks, BlockRendererInterface $blockRenderer,
                                 BlockContextManagerInterface $blockContextManager, EventDispatcherInterface $eventDispatcher,
                                 CacheManagerInterface $cacheManager = null, HttpCacheHandlerInterface $cacheHandler = null, Stopwatch $stopwatch = null)
@@ -149,12 +144,7 @@ class BlockHelper
         return $html;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    public function renderEvent($name, array $options = [])
+    public function renderEvent(string $name, array $options = []): string
     {
         $eventName = sprintf('sonata.block.event.%s', $name);
 
@@ -183,10 +173,8 @@ class BlockHelper
      * Check if a given block type exists.
      *
      * @param string $type Block type to check for
-     *
-     * @return bool
      */
-    public function exists($type)
+    public function exists(string $type): bool
     {
         return $this->blockContextManager->exists($type);
     }
@@ -291,10 +279,8 @@ class BlockHelper
 
     /**
      * Returns the rendering traces.
-     *
-     * @return array
      */
-    public function getTraces()
+    public function getTraces(): array
     {
         return $this->traces;
     }
