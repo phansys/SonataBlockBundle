@@ -80,22 +80,22 @@ abstract class BaseBlock implements BlockInterface
         return sprintf('%s ~ #%s', $this->getName(), $this->getId());
     }
 
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setType($type): void
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
 
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -105,37 +105,37 @@ abstract class BaseBlock implements BlockInterface
         $this->settings = $settings;
     }
 
-    public function getSettings()
+    public function getSettings(): array
     {
         return $this->settings;
     }
 
-    public function setSetting($name, $value): void
+    public function setSetting(string $name, $value): void
     {
         $this->settings[$name] = $value;
     }
 
-    public function getSetting($name, $default = null)
+    public function getSetting(string $name, $default = null)
     {
         return isset($this->settings[$name]) ? $this->settings[$name] : $default;
     }
 
-    public function setEnabled($enabled): void
+    public function setEnabled(bool $enabled): void
     {
         $this->enabled = $enabled;
     }
 
-    public function getEnabled()
+    public function getEnabled(): bool
     {
         return $this->enabled;
     }
 
-    public function setPosition($position): void
+    public function setPosition(int $position): void
     {
         $this->position = $position;
     }
 
-    public function getPosition()
+    public function getPosition(): ?int
     {
         return $this->position;
     }
@@ -145,7 +145,7 @@ abstract class BaseBlock implements BlockInterface
         $this->createdAt = $createdAt;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
@@ -155,7 +155,7 @@ abstract class BaseBlock implements BlockInterface
         $this->updatedAt = $updatedAt;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -167,7 +167,7 @@ abstract class BaseBlock implements BlockInterface
         $child->setParent($this);
     }
 
-    public function getChildren()
+    public function getChildren(): array
     {
         return $this->children;
     }
@@ -177,17 +177,17 @@ abstract class BaseBlock implements BlockInterface
         $this->parent = $parent;
     }
 
-    public function getParent()
+    public function getParent(): BlockInterface
     {
         return $this->parent;
     }
 
-    public function hasParent()
+    public function hasParent(): bool
     {
         return $this->getParent() instanceof self;
     }
 
-    public function getTtl()
+    public function getTtl(): int
     {
         if (!$this->getSetting('use_cache', true)) {
             return 0;
@@ -206,7 +206,7 @@ abstract class BaseBlock implements BlockInterface
         return $this->ttl;
     }
 
-    public function hasChildren()
+    public function hasChildren(): bool
     {
         return \count($this->children) > 0;
     }

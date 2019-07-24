@@ -51,24 +51,24 @@ final class BlockServiceManager implements BlockServiceManagerInterface
         $this->container = $container;
     }
 
-    public function get(BlockInterface $block)
+    public function get(BlockInterface $block): BlockServiceInterface
     {
         $this->load($block->getType());
 
         return $this->services[$block->getType()];
     }
 
-    public function getService($id)
+    public function getService($id): BlockServiceInterface
     {
         return $this->load($id);
     }
 
-    public function has($id)
+    public function has(string $id): bool
     {
-        return isset($this->services[$id]) ? true : false;
+        return isset($this->services[$id]);
     }
 
-    public function add($name, $service, $contexts = []): void
+    public function add(string $name, string $service, array $contexts = []): void
     {
         $this->services[$name] = $service;
 
@@ -81,7 +81,7 @@ final class BlockServiceManager implements BlockServiceManagerInterface
         }
     }
 
-    public function getServices()
+    public function getServices(): array
     {
         foreach ($this->services as $name => $id) {
             if (\is_string($id)) {
@@ -92,7 +92,7 @@ final class BlockServiceManager implements BlockServiceManagerInterface
         return $this->sortServices($this->services);
     }
 
-    public function getServicesByContext($context, $includeContainers = true)
+    public function getServicesByContext(string $context, bool $includeContainers = true): array
     {
         if (!\array_key_exists($context, $this->contexts)) {
             return [];
@@ -139,13 +139,9 @@ final class BlockServiceManager implements BlockServiceManagerInterface
     }
 
     /**
-     * @param string $type
-     *
      * @throws \RuntimeException
-     *
-     * @return BlockServiceInterface
      */
-    private function load($type)
+    private function load(string $type): BlockServiceInterface
     {
         if (!$this->has($type)) {
             throw new \RuntimeException(sprintf('The block service `%s` does not exist', $type));
@@ -164,14 +160,10 @@ final class BlockServiceManager implements BlockServiceManagerInterface
 
     /**
      * Sort alphabetically services.
-     *
-     * @param array $services
-     *
-     * @return array
      */
-    private function sortServices($services)
+    private function sortServices(array $services): array
     {
-        uasort($services, static function ($a, $b) {
+        uasort($services, static function (BlockInterface $a, BlockInterface $b): int {
             if ($a->getName() === $b->getName()) {
                 return 0;
             }

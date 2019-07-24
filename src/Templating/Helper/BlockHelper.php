@@ -299,10 +299,7 @@ class BlockHelper
         return $this->traces;
     }
 
-    /**
-     * @return array
-     */
-    private function startTracing(BlockInterface $block)
+    private function startTracing(BlockInterface $block): array
     {
         if (null !== $this->stopwatch) {
             $this->traces[$block->getId()] = $this->stopwatch->start(
@@ -347,10 +344,7 @@ class BlockHelper
         $this->traces[$block->getId()]['cache']['lifetime'] = $this->traces[$block->getId()]['cache']['age'] + $this->traces[$block->getId()]['cache']['ttl'];
     }
 
-    /**
-     * @return array
-     */
-    private function getEventBlocks(BlockEvent $event)
+    private function getEventBlocks(BlockEvent $event): array
     {
         $results = [];
 
@@ -361,12 +355,7 @@ class BlockHelper
         return $results;
     }
 
-    /**
-     * @param string $eventName
-     *
-     * @return array
-     */
-    private function getEventListeners($eventName)
+    private function getEventListeners(string $eventName): array
     {
         $results = [];
 
@@ -386,8 +375,6 @@ class BlockHelper
     }
 
     /**
-     * @param array $stats
-     *
      * @return CacheAdapterInterface|false
      */
     private function getCacheService(BlockInterface $block, array &$stats = null)

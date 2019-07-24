@@ -22,15 +22,11 @@ interface BlockLoaderInterface
      * @param mixed $name
      *
      * @throws BlockNotFoundException if no block with that name is found
-     *
-     * @return BlockInterface
      */
-    public function load($name);
+    public function load($name): BlockInterface;
 
     /**
      * @param mixed $name
-     *
-     * @return bool
      */
-    public function support($name);
+    public function support($name): bool;
 }

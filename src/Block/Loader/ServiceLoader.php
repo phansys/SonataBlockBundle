@@ -15,6 +15,7 @@ namespace Sonata\BlockBundle\Block\Loader;
 
 use Sonata\BlockBundle\Block\BlockLoaderInterface;
 use Sonata\BlockBundle\Model\Block;
+use Sonata\BlockBundle\Model\BlockInterface;
 
 final class ServiceLoader implements BlockLoaderInterface
 {
@@ -35,15 +36,13 @@ final class ServiceLoader implements BlockLoaderInterface
      * Check if a given block type exists.
      *
      * @param string $type Block type to check for
-     *
-     * @return bool
      */
-    public function exists($type)
+    public function exists(string $type): bool
     {
         return \in_array($type, $this->types, true);
     }
 
-    public function load($configuration)
+    public function load($configuration): BlockInterface
     {
         if (!\in_array($configuration['type'], $this->types, true)) {
             throw new \RuntimeException(sprintf(
@@ -63,7 +62,7 @@ final class ServiceLoader implements BlockLoaderInterface
         return $block;
     }
 
-    public function support($configuration)
+    public function support($configuration): bool
     {
         if (!\is_array($configuration)) {
             return false;

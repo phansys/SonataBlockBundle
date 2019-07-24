@@ -33,17 +33,17 @@ final class BlockContext implements BlockContextInterface
         $this->settings = $settings;
     }
 
-    public function getBlock()
+    public function getBlock(): BlockInterface
     {
         return $this->block;
     }
 
-    public function getSettings()
+    public function getSettings(): array
     {
         return $this->settings;
     }
 
-    public function getSetting($name)
+    public function getSetting(string $name)
     {
         if (!\array_key_exists($name, $this->settings)) {
             throw new \RuntimeException(sprintf('Unable to find the option `%s` (%s) - define the option in the related BlockServiceInterface', $name, $this->block->getType()));
@@ -52,7 +52,7 @@ final class BlockContext implements BlockContextInterface
         return $this->settings[$name];
     }
 
-    public function setSetting($name, $value)
+    public function setSetting(string $name, $value): BlockContextInterface
     {
         if (!\array_key_exists($name, $this->settings)) {
             throw new \RuntimeException(sprintf('It\'s not possible add non existing setting `%s`.', $name));
@@ -63,7 +63,7 @@ final class BlockContext implements BlockContextInterface
         return $this;
     }
 
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return $this->getSetting('template');
     }

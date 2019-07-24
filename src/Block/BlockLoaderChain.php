@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\BlockBundle\Block;
 
 use Sonata\BlockBundle\Exception\BlockNotFoundException;
+use Sonata\BlockBundle\Model\BlockInterface;
 
 final class BlockLoaderChain implements BlockLoaderInterface
 {
@@ -34,10 +35,8 @@ final class BlockLoaderChain implements BlockLoaderInterface
      * Check if a given block type exists.
      *
      * @param string $type Block type to check for
-     *
-     * @return bool
      */
-    public function exists($type)
+    public function exists(string $type): bool
     {
         foreach ($this->loaders as $loader) {
             if ($loader->exists($type)) {
@@ -48,7 +47,7 @@ final class BlockLoaderChain implements BlockLoaderInterface
         return false;
     }
 
-    public function load($block)
+    public function load($block): BlockInterface
     {
         foreach ($this->loaders as $loader) {
             if ($loader->support($block)) {
@@ -59,7 +58,7 @@ final class BlockLoaderChain implements BlockLoaderInterface
         throw new BlockNotFoundException();
     }
 
-    public function support($name)
+    public function support($name): bool
     {
         return true;
     }
